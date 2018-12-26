@@ -22,7 +22,7 @@ def execute_sql(sql_statements, parameters=None):
         i = 0
         for statement in sql_statements:
             try:
-                if parameters and parameters[i]:
+                if parameters and len(parameters) > i:
                     cursor.execute(statement, parameters[i])
                 else:
                     cursor.execute(statement)
@@ -31,6 +31,7 @@ def execute_sql(sql_statements, parameters=None):
             finally:
                 i += 1
         conn.commit()
+        return cursor.fetchall()
     except(Exception, psycopg2.Error) as error:
         print("Error while connecting to PostgreSQL ",error)
     finally:
@@ -65,8 +66,15 @@ def add_cards_to_database(cards):
         insert_params.append((card.uid, card.japanese, card.english, card.character))
     execute_sql(insert_queries, insert_params)
 
-reset_table()
-burned_items = get_burned_items()
-cards = create_cards(burned_items)
-add_cards_to_database(cards)
+def get_cards_from_database():
+    select_query = """SELECT * FROM cards;"""
+    db_entries = execute_sql([select_query])
+    cards = []
+    for entry in db_entries:
+        card = Card(japanese=entry[2], english=entry[3], character=entry[4])
+        cards.append(card)
+        print(card.json(),'\n')
+    return cards
+
+get_cards_from_database()
 

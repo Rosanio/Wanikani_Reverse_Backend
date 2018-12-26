@@ -8,3 +8,6 @@ class Card:
     def __repr__(self):
         return 'English: {} Japanese: {}'.format(self.english, self.character)
 
+    def json(self):
+        return '{"kana": "%s", "kanji": "%s", "english": "%s"}' % (self.japanese, self.character, self.english)
+
