@@ -1,5 +1,5 @@
 from flask import Flask
-from .wanikanireverse import get_cards_from_database
+from wanikanireverse import get_cards_from_database
 
 app = Flask(__name__)
 

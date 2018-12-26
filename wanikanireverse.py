@@ -2,7 +2,7 @@ import requests
 from pprint import pprint
 import sqlite3
 import psycopg2
-from .models import Card
+from models import Card
 
 def get_burned_items():
     url = 'https://www.wanikani.com/api/user/d991e3214f6ad804b576e0a78de519af/vocabulary'
