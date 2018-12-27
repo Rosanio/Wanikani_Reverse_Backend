@@ -2,7 +2,12 @@ import requests
 from pprint import pprint
 import sqlite3
 import psycopg2
-from models import Card
+try:
+    from models import Card
+    from app import db
+except ModuleNotFoundError:
+    from .models import Card
+    from .app import db
 
 def get_burned_items():
     url = 'https://www.wanikani.com/api/user/d991e3214f6ad804b576e0a78de519af/vocabulary'
@@ -40,7 +45,7 @@ def execute_sql(sql_statements, parameters=None):
             conn.close()
             print("PostgreSQL connection is closed")
 
-def create_cards(burned_items):
+def create_cards_from_api(burned_items):
     cards = []
     for item in burned_items:
         card = Card(japanese=item['kana'], english=item['meaning'], character=item['character'])
@@ -58,21 +63,11 @@ def reset_table():
     execute_sql(sql)
 
 def add_cards_to_database(cards):
-    insert_query = """INSERT INTO cards VALUES (DEFAULT, %s, %s, %s, %s);"""
-    insert_queries = []
-    insert_params = []
     for card in cards:
-        insert_queries.append(insert_query)
-        insert_params.append((card.uid, card.japanese, card.english, card.character))
-    execute_sql(insert_queries, insert_params)
+        db.session.add(card)
+    db.session.commit()
 
 def get_cards_from_database():
-    select_query = """SELECT * FROM cards;"""
-    db_entries = execute_sql([select_query])
-    cards = []
-    for entry in db_entries:
-        card = Card(japanese=entry[2], english=entry[3], character=entry[4])
-        cards.append(card)
-        print(card.json(),'\n')
+    cards = Card.query.all()
     return cards
 
