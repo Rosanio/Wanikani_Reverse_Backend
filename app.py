@@ -1,8 +1,14 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+
+try:
+    db_url = os.environ['DATABASE_URL']
+except KeyError:
+    db_url = 'postgresql://wanikaniuser:iinihongo@127.0.0.1:5432/wanikanireverse'
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
