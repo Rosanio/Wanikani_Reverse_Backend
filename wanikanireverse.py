@@ -48,7 +48,7 @@ def execute_sql(sql_statements, parameters=None):
 def create_cards_from_api(burned_items):
     cards = []
     for item in burned_items:
-        card = Card(japanese=item['kana'], english=item['meaning'], character=item['character'])
+        card = Card(kana=item['kana'], english=item['meaning'], kanji=item['character'])
         cards.append(card)
     return cards
 
@@ -64,10 +64,20 @@ def reset_table():
 
 def add_cards_to_database(cards):
     for card in cards:
-        db.session.add(card)
+        existing_card = Card.query.filter_by(uid=card.uid).first()
+        if not existing_card:
+            db.session.add(card)
     db.session.commit()
 
 def get_cards_from_database():
     cards = Card.query.all()
     return cards
+
+def fetch_cards():
+    print("Pulling info from WaniKani...")
+    items = get_burned_items()
+    print("Converting to cards...")
+    cards = create_cards_from_api(items)
+    print("Adding cards to database...")
+    add_cards_to_database(cards)
 
