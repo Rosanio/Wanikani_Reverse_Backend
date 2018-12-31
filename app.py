@@ -27,7 +27,7 @@ def everythings_file():
     return 'Everything is wonderful'
 
 @app.route('/get_burned_cards')
-@cross_origin
+@cross_origin()
 def burned_cards():
     cards = get_cards_from_database()
     response = []
