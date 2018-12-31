@@ -1,4 +1,5 @@
 import os
+import json
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS, cross_origin
@@ -23,7 +24,7 @@ except ModuleNotFoundError:
 db.create_all()
 
 @app.route('/')
-def everythings_file():
+def everythings_fine():
     return 'Everything is wonderful'
 
 @app.route('/get_burned_cards')
@@ -32,6 +33,6 @@ def burned_cards():
     cards = get_cards_from_database()
     response = []
     for card in cards:
-        print(card.__dict__)
+        print(card.json())
         response.append(card.json())
-    return str(response)
+    return json.dumps(response, ensure_ascii=False)

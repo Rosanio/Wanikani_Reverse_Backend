@@ -22,5 +22,5 @@ class Card(db.Model):
         return 'English: {} Japanese: {}'.format(self.english, self.kanji)
 
     def json(self):
-        return '{"kana": "%s", "kanji": "%s", "english": "%s"}' % (self.kana, self.kanji, self.english)
+        return {"kana": self.kana, "kanji": self.kanji, "english": self.english}
 
