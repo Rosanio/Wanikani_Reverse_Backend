@@ -13,6 +13,7 @@ gunicorn = "*"
 flask-sqlalchemy = "*"
 flask-script = "*"
 flask-migrate = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
