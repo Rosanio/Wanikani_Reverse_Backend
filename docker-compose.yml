@@ -8,6 +8,7 @@ services:
     container_name: backend
     volumes: 
       - ./backend:/backend
+      - ./common/scripts/wait-for-it.sh:/usr/local/bin/wait-for-it.sh
     ports: 
       - 8001:8001
     environment:
@@ -15,7 +16,14 @@ services:
     networks:
       wknet:
         ipv4_address: 172.16.238.10
-    command: /bin/sh -c "ls && gunicorn backend:app --log-file -"
+    command: chmod +x /usr/local/bin/wait-for-it.sh && /usr/local/bin/wait-for-it.sh --timeout=80 db:5432 -- /bin/sh -c "ls && gunicorn backend.app:app --log-file -"
+
+  db:
+    image: postgres:10.3
+    container_name: db
+    networks:
+      wknet:
+        ipv4_address: 172.16.238.11
 
 networks:
   wknet:
