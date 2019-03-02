@@ -16,7 +16,7 @@ services:
     networks:
       wknet:
         ipv4_address: 172.16.238.10
-    command: chmod +x /usr/local/bin/wait-for-it.sh && /usr/local/bin/wait-for-it.sh --timeout=80 db:5432 -- /bin/sh -c "ls && gunicorn backend.app:app --log-file -"
+    command: /usr/local/bin/wait-for-it.sh --timeout=80 db:5432 -- /bin/sh -c "ls && gunicorn backend.app:app --log-file -"
 
   db:
     image: postgres:10.3
