@@ -18,6 +18,21 @@ services:
         ipv4_address: 172.16.238.10
     command: /usr/local/bin/wait-for-it.sh --timeout=80 db:5432 -- /bin/sh -c "chmod +x init.sh && ./init.sh"
 
+  frontend:
+    build:
+      context: ./frontend
+      network: host
+    container_name: frontend
+    volumes:
+      - ./frontend:/opt/mattrosanio/frontend
+      - ./common/scripts/wait-for-it.sh:/usr/local/bin/wait-for-it.sh
+    ports:
+      - 3000:3000
+    networks:
+      wknet:
+        ipv4_address: 172.16.238.11
+    command: /usr/local/bin/wait-for-it.sh --timeout=80 backend:8001 -- /bin/sh -c "npm start"
+
   db:
     image: postgres:10.3
     container_name: db
@@ -26,7 +41,7 @@ services:
       POSTGRES_PASSWORD: "iinihongo"
     networks:
       wknet:
-        ipv4_address: 172.16.238.11
+        ipv4_address: 172.16.238.12
 
 networks:
   wknet:
