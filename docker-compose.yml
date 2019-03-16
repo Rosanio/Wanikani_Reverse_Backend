@@ -16,11 +16,14 @@ services:
     networks:
       wknet:
         ipv4_address: 172.16.238.10
-    command: /usr/local/bin/wait-for-it.sh --timeout=80 db:5432 -- /bin/sh -c "ls && gunicorn backend.app:app --log-file -"
+    command: /usr/local/bin/wait-for-it.sh --timeout=80 db:5432 -- /bin/sh -c "./init.sh"
 
   db:
     image: postgres:10.3
     container_name: db
+    environment:
+      POSTGRES_USER: "wanikanireverse"
+      POSTGRES_PASSWORD: "iinihongo"
     networks:
       wknet:
         ipv4_address: 172.16.238.11

@@ -7,8 +7,8 @@ from flask_cors import CORS, cross_origin
 try:
     db_url = os.environ['DATABASE_URL']
 except KeyError:
-    db_url = 'postgresql://wanikaniuser:iinihongo@127.0.0.1:5432/wanikanireverse'
-
+    db_url = 'postgresql://wanikanireverse:iinihongo@db:5432/wanikanireverse'
+print("DATABASE URL: {}".format(db_url))
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
