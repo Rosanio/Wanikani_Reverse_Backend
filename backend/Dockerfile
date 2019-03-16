@@ -7,9 +7,9 @@ FROM python:3
 
 #Copy Pipfiles to /opt/mattrosanio/wanikanireverse
 RUN mkdir -p /opt/mattrosanio/backend
-COPY . /opt/mattrosanio/backend
+COPY Pipfile /opt/mattrosanio/backend
+COPY Pipfile.lock /opt/mattrosanio/backend
 WORKDIR /opt/mattrosanio/backend
-RUN chmod +x init.sh
 
 #Install and update python packages and project dependencies
 RUN pip install pipenv && \

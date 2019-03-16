@@ -7,7 +7,7 @@ services:
       network: host
     container_name: backend
     volumes: 
-      - ./backend:/backend
+      - ./backend:/opt/mattrosanio/backend
       - ./common/scripts/wait-for-it.sh:/usr/local/bin/wait-for-it.sh
     ports: 
       - 8001:8001
@@ -16,7 +16,7 @@ services:
     networks:
       wknet:
         ipv4_address: 172.16.238.10
-    command: /usr/local/bin/wait-for-it.sh --timeout=80 db:5432 -- /bin/sh -c "./init.sh"
+    command: /usr/local/bin/wait-for-it.sh --timeout=80 db:5432 -- /bin/sh -c "chmod +x init.sh && ./init.sh"
 
   db:
     image: postgres:10.3

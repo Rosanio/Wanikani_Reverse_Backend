@@ -2,3 +2,4 @@ node_modules/
 wanikanirversekey.pem
 .vscode/
 .vagrant/
+backend/__pycache__/
