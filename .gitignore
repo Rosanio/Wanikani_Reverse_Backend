@@ -3,3 +3,4 @@ wanikanirversekey.pem
 .vscode/
 .vagrant/
 backend/__pycache__/
+package-lock.json
