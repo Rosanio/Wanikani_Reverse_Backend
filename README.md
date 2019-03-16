@@ -1,0 +1,2 @@
+#WaniKani Reverse
+The Japanese learning website WaniKani uses flashcards, mnemonics and the spaced repetition system to help users learn to recognize Japanese characters (Kanji) and vocabulary. However, WaniKani only displays Japanese text to the user and accepts English input. When studying a new language, it's equally important (if not more so) to be able to translate from English to Japanese. This project uses the API provided by WaniKani to display the English text of their vocabulary flashcards, and prompts the user to input the corresponding word in Japanese.
