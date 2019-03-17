@@ -16,15 +16,33 @@ class App extends Component {
       this.setState({
         cards: res
       })
-      console.log(this.state)
     })
     .catch(error => {console.log(error)})
   }
 
+  getRandomCard() {
+    let index = Math.floor(Math.random() * this.state.cards.length)
+    return this.state.cards[index]
+  }
+
   render() {
+    let card;
+    let cardComponent;
+    if (this.state.cards.length > 0) {
+      card = this.getRandomCard();
+      cardComponent = (
+        <div>
+          <h3>{card.english}</h3>
+        </div>
+      )
+    } else {
+      cardComponent = <h3>Loading...</h3>
+    }
+    
     return (
       <div className="App">
-        
+        <h1>WaniKani Reverse</h1>
+        {cardComponent}
       </div>
     );
   }
