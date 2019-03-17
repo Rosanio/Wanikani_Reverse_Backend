@@ -24,7 +24,8 @@ services:
       network: host
     container_name: frontend
     volumes:
-      - ./frontend:/opt/mattrosanio/frontend
+      - ./frontend/public:/opt/mattrosanio/frontend/public
+      - ./frontend/src:/opt/mattrosanio/frontend/src
       - ./common/scripts/wait-for-it.sh:/usr/local/bin/wait-for-it.sh
     ports:
       - 3000:3000
