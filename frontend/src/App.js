@@ -7,7 +7,9 @@ class App extends Component {
     this.state = {
       cards: [],
       card: undefined,
-      answer: ''
+      answer: '',
+      submitted: false,
+      correct: false
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -30,7 +32,22 @@ class App extends Component {
   }
 
   handleSubmit(event) {
-    console.log(this.state.answer)
+    if (this.state.submitted) {
+      let newCard = this.getRandomCard(this.state.cards)
+      this.setState({
+        submitted: false,
+        correct: false,
+        card: newCard,
+        answer: ''
+      })
+    } else {
+      let correct = (this.state.answer === this.state.card.kana ||
+                     this.state.answer === this.state.card.kanji)
+      this.setState({
+        correct: correct,
+        submitted: true
+      })
+    }
     event.preventDefault()
   }
 
@@ -41,23 +58,39 @@ class App extends Component {
 
   render() {
     let cardComponent;
+    let correctComponent;
     if (this.state.card) {
       cardComponent = (
         <div>
           <h3>{this.state.card.english}</h3>
           <form onSubmit={this.handleSubmit}>
             <input type="text" value={this.state.answer} onChange={this.handleChange} />
+            <input type="submit" value={this.state.submitted ? "Next" : "Submit"} />
           </form>
         </div>
       )
     } else {
       cardComponent = <h3>Loading...</h3>
     }
+
+    if (!this.state.submitted) {
+      correctComponent = <div></div>
+    } else if (this.state.correct) {
+      correctComponent = <div><p>Correct!</p></div>
+    } else {
+      correctComponent = (
+        <div>
+          <p>Incorrect Answer</p>
+          <p>The correct answer was {this.state.card.kana}</p>
+        </div>
+      )
+    }
     
     return (
       <div className="App">
         <h1>WaniKani Reverse</h1>
         {cardComponent}
+        {correctComponent}
       </div>
     );
   }
