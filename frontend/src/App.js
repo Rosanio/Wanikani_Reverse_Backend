@@ -5,8 +5,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: []
+      cards: [],
+      card: undefined,
+      answer: ''
     };
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
@@ -14,25 +18,36 @@ class App extends Component {
     .then(data => {return data.json()})
     .then(res => {
       this.setState({
-        cards: res
+        cards: res,
+        card: this.getRandomCard(res)
       })
     })
     .catch(error => {console.log(error)})
   }
 
-  getRandomCard() {
-    let index = Math.floor(Math.random() * this.state.cards.length)
-    return this.state.cards[index]
+  handleChange(event) {
+    this.setState({answer: event.target.value})
+  }
+
+  handleSubmit(event) {
+    console.log(this.state.answer)
+    event.preventDefault()
+  }
+
+  getRandomCard(cards) {
+    let index = Math.floor(Math.random() * cards.length)
+    return cards[index]
   }
 
   render() {
-    let card;
     let cardComponent;
-    if (this.state.cards.length > 0) {
-      card = this.getRandomCard();
+    if (this.state.card) {
       cardComponent = (
         <div>
-          <h3>{card.english}</h3>
+          <h3>{this.state.card.english}</h3>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" value={this.state.answer} onChange={this.handleChange} />
+          </form>
         </div>
       )
     } else {
