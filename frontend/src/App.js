@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   
   render() {
-    fetch('http://localhost:5000/get_burned_cards')
-        .then(data => {return data.json()})
+    console.log('Start')
+    fetch('http://localhost:8001/get_burned_cards')
+        .then(data => {
+          console.log('Got data')
+          return data.json()
+        })
         .then(res => {console.log(res)})
+        .catch(error => {console.log(error)})
     return (
       <div className="App">
         
