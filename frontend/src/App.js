@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+let wanakana = require('wanakana')
 
 class App extends Component {
   constructor(props) {
@@ -11,11 +12,13 @@ class App extends Component {
       submitted: false,
       correct: false
     };
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.myRef = React.createRef()
   }
 
   componentDidMount() {
+    console.log(this.myRef)
     fetch('http://localhost:8001/get_burned_cards')
     .then(data => {return data.json()})
     .then(res => {
@@ -57,6 +60,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.myRef)
     let cardComponent;
     let correctComponent;
     if (this.state.card) {
@@ -64,7 +68,7 @@ class App extends Component {
         <div>
           <h3>{this.state.card.english}</h3>
           <form onSubmit={this.handleSubmit}>
-            <input type="text" value={this.state.answer} onChange={this.handleChange} />
+            <input type="text" value={this.state.answer} onChange={this.handleChange} ref={this.myRef} />
             <input type="submit" value={this.state.submitted ? "Next" : "Submit"} />
           </form>
         </div>
