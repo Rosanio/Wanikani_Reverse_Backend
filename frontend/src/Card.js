@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+let wanakana = require('wanakana')
 
 class Card extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class Card extends Component {
   }
 
   handleChange(event) {
-    this.setState({answer: event.target.value});
+    let kana = wanakana.toKana(event.target.value)
+    this.setState({answer: kana});
   }
 
   handleSubmit(event) {
@@ -49,7 +51,7 @@ class Card extends Component {
       correctComponent = (
         <div>
           <p>Incorrect Answer</p>
-          <p>The correct answer was {this.props.card.kana}</p>
+          <p>The correct answer was {this.props.card.kana} ({this.props.card.kanji})</p>
         </div>
       )
     }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Card from './Card.js';
-let wanakana = require('wanakana')
 
 class App extends Component {
   constructor(props) {
@@ -14,7 +13,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(this.myRef)
     fetch('http://localhost:8001/get_burned_cards')
     .then(data => {return data.json()})
     .then(res => {
