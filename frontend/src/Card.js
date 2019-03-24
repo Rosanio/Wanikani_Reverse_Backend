@@ -16,7 +16,7 @@ class Card extends Component {
   }
 
   handleChange(event) {
-    let kana = wanakana.toKana(event.target.value)
+    let kana = wanakana.toKana(event.target.value, {IMEMode: true})
     this.setState({answer: kana});
   }
 
