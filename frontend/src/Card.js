@@ -29,15 +29,18 @@ class Card extends Component {
       })
       this.props.onCardAnswered();
     } else {
-      let answer = this.state.answer;
-      let correct = (answer === this.props.card.kana ||
-                     answer === this.props.card.kanji)
       this.setState({
-        correct: correct,
+        correct: this.isCorrectAnswer(),
         submitted: true
       })
     }
     event.preventDefault();
+  }
+
+  isCorrectAnswer() {
+    let answer = this.state.answer;
+    return (answer === this.props.card.kana ||
+                   answer === this.props.card.kanji)
   }
 
   render() {
@@ -60,8 +63,8 @@ class Card extends Component {
       <div>
         <h3>{this.props.card.english}</h3>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" value={this.state.answer} onChange={this.handleChange} ref={this.myRef} />
-          <input type="submit" value={this.state.submitted ? "Next" : "Submit"} />
+          <input type="text" value={this.state.answer} onChange={this.handleChange} ref={this.myRef} id='answer' />
+          <input type="submit" value={this.state.submitted ? "Next" : "Submit"} id='submit-answer' />
         </form>
         {correctComponent}
       </div>
