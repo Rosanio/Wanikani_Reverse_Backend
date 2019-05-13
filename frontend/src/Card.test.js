@@ -25,3 +25,20 @@ it('recognizes correct answers', () => {
     expect(component.state('correct')).toEqual(true);
     component.unmount()
 })
+
+it('handles multiple correct answers', () => {
+    let card = {
+        'english': 'test',
+        'kana': 'しけん, ためし',
+        'kanji': '試験, 試し'
+    }
+    const component = mount(<Card card={card} />)
+    component
+        .find('#answer')
+        .simulate('change', { target: { value: 'shikenn' } });
+    component
+        .find('#submit-answer')
+        .simulate('submit');
+    expect(component.state('correct')).toEqual(true);
+    component.unmount()
+})

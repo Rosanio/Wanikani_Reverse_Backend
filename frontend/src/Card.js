@@ -39,8 +39,8 @@ class Card extends Component {
 
   isCorrectAnswer() {
     let answer = this.state.answer;
-    return (answer === this.props.card.kana ||
-                   answer === this.props.card.kanji)
+    let correctAnswers = this.props.card.kana.split(',').concat(this.props.card.kanji.split('.'));
+    return correctAnswers.includes(answer);
   }
 
   render() {
