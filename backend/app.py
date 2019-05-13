@@ -29,6 +29,5 @@ def burned_cards():
     cards = get_cards_from_database()
     response = []
     for card in cards:
-        print(card.json())
         response.append(card.json())
     return json.dumps(response, ensure_ascii=False)
