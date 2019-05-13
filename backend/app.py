@@ -20,11 +20,11 @@ except ImportError:
 
 db.create_all()
 
-@app.route('/', methods=['GET'])
+@app.route('/api', methods=['GET'])
 def everythings_fine():
     return 'Everything is wonderful'
 
-@app.route('/get_burned_cards', methods=['GET'])
+@app.route('/api/get_burned_cards', methods=['GET'])
 def burned_cards():
     cards = get_cards_from_database()
     response = []

@@ -13,7 +13,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:8001/get_burned_cards')
+    fetch('/api/get_burned_cards')
     .then(data => {return data.json()})
     .then(res => {
       this.setState({
