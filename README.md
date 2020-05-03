@@ -9,4 +9,4 @@ First, you will need to clone this repository:
 
 ```git clone https://github.com/Rosanio/Wanikani_Reverse_Backend```
 
-After that, navigate to the root level directory and run ```docker-compose up```. You should now be able to access the page at http://localhost:3000.
+After that, navigate to the root level directory and run ```docker-compose up```. You should now be able to access the page at http://localhost.
