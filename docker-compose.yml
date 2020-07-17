@@ -24,8 +24,6 @@ services:
       - ./common/scripts/wait-for-it.sh:/usr/local/bin/wait-for-it.sh
     ports: 
       - 8001:8001
-    environment:
-      FLASK_APP: app.py
     networks:
       wknet:
         ipv4_address: 172.16.238.10
